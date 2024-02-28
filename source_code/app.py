@@ -1,30 +1,63 @@
 from pyspark.sql import SparkSession
+from pyspark.sql import DataFrame
 
+import logging
+import datetime as dt
+
+from logging.handlers import RotatingFileHandler
+
+today = dt.datetime.today()
+log_filename_format = f"{today.day:02d}-{today.month:02d}-{today.year}.log"
+
+import pyspark.sql.functions as f
+
+# Spark session creation
 spark = SparkSession.builder\
         .appName("Programming-Exercise") \
         .getOrCreate()
 
-credit_card_csv_path = "Datasets/dataset_two.csv"
-personal_info_csv_path = "Datasets/dataset_one.csv"
+# Logging initilisation
+handler = RotatingFileHandler(
+    filename=log_filename_format,
+    maxBytes = 2048,
+    backupCount=3
+)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+handler.setFormatter(formatter)
 
-credit_card_df = spark.read.csv(credit_card_csv_path, header = True, inferSchema = True)
-personal_info_df = spark.read.csv(personal_info_csv_path, header = True, inferSchema = True)
+logger = logging.getLogger("ProjectLogger")
+logger.addHandler(handler)
+logger.setLevel(logging.DEBUG)
 
-credit_card_df.printSchema()
-personal_info_df.printSchema()
-
-# Step 1: Join both dataframes 
-# Looking at the toal number of records each dataframe has before join
-print("Personal info dataframe number of records is ", personal_info_df.count())
-
-print("Credit card dataframe number of records is ", credit_card_df.count())
-
-# Both dataframes have 1000 records, therefore no records will be missing from either dataframe
-# Perform join based on id
-Joined_df = personal_info_df.join(credit_card_df, "id", "inner")
-Joined_df.show()
-print("Total number of records in joined dataframe ", Joined_df.count())
+# Create Client data
+# Step 1: Create generic Filter for countries
+def filter_country(origin_df: DataFrame, colum_name: str, country_name: str) -> DataFrame:
+    try:
+        filtered_data = origin_df.filter(f.col(colum_name) == country_name)
+        return filtered_data
+    except Exception as e:
+        logger.exception(e)
+        return DataFrame()
 
 
-# Step 2:
+# Final: Function for creating final output
+def client_data_creation(df1_path: str, df2_path: str, country_name: str) -> DataFrame:
+    # Read both dataframes
+    df1= spark.read.csv(df1_path, header = True, inferSchema = True)
+    df2 = spark.read.csv(df2_path, header = True, inferSchema = True)
+    logger.info("Both dataframes read by spark")
+
+    # Join dataframe
+    joined_df = df1.join(df2, "id", "inner")
+    logger.info("Personal info and Credit card dataframes joined")
+
+    # Filter joined dataframe by country
+    filtered_joined_data = filter_country(joined_df, "country", country_name)
+    logger.info(f"Joined dataframe has been filtered on the country {country_name}")
+    return filtered_joined_data
+
+
+Final_data = client_data_creation("Datasets/dataset_two.csv", "Datasets/dataset_one.csv", "Netherlands")
+Final_data.show()
+
 

@@ -1,0 +1,5 @@
+2024-02-28 22:07:45,483 - ProjectLogger - INFO - Both dataframes read by spark
+2024-02-28 22:07:45,506 - ProjectLogger - INFO - Dataframes joined
+2024-02-28 22:30:40,530 - ProjectLogger - INFO - Both dataframes read by spark
+2024-02-28 22:30:40,555 - ProjectLogger - INFO - Dataframes joined
+2024-02-28 22:30:40,572 - ProjectLogger - INFO - Joined dataframe has been filtered on the country Netherlands
