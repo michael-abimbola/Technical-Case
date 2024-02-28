@@ -103,6 +103,19 @@ def drop_columns(origin_df: DataFrame, columns: list) -> DataFrame:
 
 
 
+# Step 2: Create generic Rename function
+def rename_column(origin_df: DataFrame, column_name_map: dict) -> DataFrame:
+        try:    
+                renamed_df = origin_df
+                for original_column_name, new_column_name in column_name_map.items():
+                      renamed_df = renamed_df.withColumnRenamed(original_column_name, new_column_name)
+                      logger.info(f"The column {original_column_name} has been renamed to {new_column_name}")
+                return renamed_df
+        except Exception as e:
+                logger.exception(e)
+                return DataFrame()
+
+
 # Final: Function for creating final output
 def client_data_creation(df1_path: str, df2_path: str, country_name: str) -> DataFrame:
     # Read both dataframes
@@ -114,7 +127,6 @@ def client_data_creation(df1_path: str, df2_path: str, country_name: str) -> Dat
     # Join dataframe
     joined_df = df1.join(df2, "id", "inner")
     logger.info("Personal info and Credit card dataframes joined")
-
 
     # Drop columns in joined dataframe
     columns_to_drop = ["first_name", "last_name", "cc_n"]
@@ -134,7 +146,6 @@ def client_data_creation(df1_path: str, df2_path: str, country_name: str) -> Dat
     filtered_renamed_dropped_joined_df = filter_country(renamed_dropped_joined_df, "country", country_name)
     return filtered_renamed_dropped_joined_df
 
-
 Final_data = client_data_creation("Datasets/dataset_two.csv", "Datasets/dataset_one.csv", "Netherlands")
 
 # Write to client_data directory in root directory
@@ -145,6 +156,7 @@ if Final_data:
         logger.info(f"Client data dataframe has been save to {save_path}")
 else:
       logger.info(f"Client data dataframe is empty, writing unsuccessful")
+
 
 
 

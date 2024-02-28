@@ -6,3 +6,4 @@
 2024-02-28 23:36:38,261 - ProjectLogger - INFO - The column cc_t has been renamed to credit_card_type
 2024-02-28 23:36:38,265 - ProjectLogger - INFO - Joined dataframe has been renamed
 2024-02-28 23:36:38,281 - ProjectLogger - INFO - Dataframe has been filtered on the country Netherlands
+
