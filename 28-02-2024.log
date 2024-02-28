@@ -1,5 +1,7 @@
-2024-02-28 22:07:45,483 - ProjectLogger - INFO - Both dataframes read by spark
-2024-02-28 22:07:45,506 - ProjectLogger - INFO - Dataframes joined
-2024-02-28 22:30:40,530 - ProjectLogger - INFO - Both dataframes read by spark
-2024-02-28 22:30:40,555 - ProjectLogger - INFO - Dataframes joined
-2024-02-28 22:30:40,572 - ProjectLogger - INFO - Joined dataframe has been filtered on the country Netherlands
+2024-02-28 23:02:43,191 - ProjectLogger - INFO - Both dataframes read by spark
+2024-02-28 23:02:43,216 - ProjectLogger - INFO - Personal info and Credit card dataframes joined
+2024-02-28 23:02:43,224 - ProjectLogger - INFO - The column id has been renamed to client_identifier
+2024-02-28 23:02:43,230 - ProjectLogger - INFO - The column btc_a has been renamed to bitcoin_address
+2024-02-28 23:02:43,239 - ProjectLogger - INFO - The column cc_t has been renamed to credit_card_type
+2024-02-28 23:02:43,240 - ProjectLogger - INFO - Joined dataframe has been renamed
+2024-02-28 23:02:43,256 - ProjectLogger - INFO - Renamed dataframe has been filtered on the country Netherlands
