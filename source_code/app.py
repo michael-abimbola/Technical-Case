@@ -30,7 +30,7 @@ logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
 
 # Create Client data
-# Step 1: Create generic Filter for countries
+# Step 1: Create generic Filter function for countries
 def filter_country(origin_df: DataFrame, colum_name: str, country_name: str) -> DataFrame:
     try:
         filtered_data = origin_df.filter(f.col(colum_name) == country_name)
@@ -38,6 +38,19 @@ def filter_country(origin_df: DataFrame, colum_name: str, country_name: str) -> 
     except Exception as e:
         logger.exception(e)
         return DataFrame()
+
+
+# Step 2: Create generic Rename function
+def rename_column(origin_df: DataFrame, column_name_map: dict) -> DataFrame:
+        try:    
+                renamed_df = origin_df
+                for original_column_name, new_column_name in column_name_map.items():
+                      renamed_df = renamed_df.withColumnRenamed(original_column_name, new_column_name)
+                      logger.info(f"The column {original_column_name} has been renamed to {new_column_name}")
+                return renamed_df
+        except Exception as e:
+                logger.exception(e)
+                return DataFrame()
 
 
 # Final: Function for creating final output
@@ -51,13 +64,23 @@ def client_data_creation(df1_path: str, df2_path: str, country_name: str) -> Dat
     joined_df = df1.join(df2, "id", "inner")
     logger.info("Personal info and Credit card dataframes joined")
 
+    # Rename joined columns
+    column_renames = {
+        "id": "client_identifier",
+        "btc_a": "bitcoin_address",
+        "cc_t": "credit_card_type"
+    }
+    renamed_joined_df = rename_column(joined_df, column_renames)
+    logger.info("Joined dataframe has been renamed")
+
     # Filter joined dataframe by country
-    filtered_joined_data = filter_country(joined_df, "country", country_name)
-    logger.info(f"Joined dataframe has been filtered on the country {country_name}")
-    return filtered_joined_data
+    filtered_renamed_joined_df = filter_country(renamed_joined_df, "country", country_name)
+    logger.info(f"Renamed dataframe has been filtered on the country {country_name}")
+    return filtered_renamed_joined_df
 
 
 Final_data = client_data_creation("Datasets/dataset_two.csv", "Datasets/dataset_one.csv", "Netherlands")
 Final_data.show()
+
 
 
