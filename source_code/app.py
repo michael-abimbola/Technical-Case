@@ -144,7 +144,7 @@ logger.info(f"Starting writing final data to client_data directory in root direc
 if Final_data:
         try:
                 save_path = "./client_data/final_data.csv"
-                Final_data.write.option("header", "true").csv(save_path)
+                Final_data.write.mode("overwrite").option("header", "true").csv(save_path)
                 logger.info(f"Client data dataframe has been save to {save_path}")
         except Exception as e:
               logger.exception(f"Error whilte saving data to path: {e}")
