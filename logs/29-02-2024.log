@@ -1,13 +1,6 @@
-2024-02-29 02:25:31,589 - ProjectLogger - INFO - Dataframe has been filtered on the country Netherlands. Rows before filter: 1000, Rows after filter: 62
-2024-02-29 02:25:31,594 - ProjectLogger - INFO - Starting writing final data to client_data directory in root directory
-2024-02-29 02:25:31,991 - ProjectLogger - ERROR - Error whilte saving data to path: [PATH_ALREADY_EXISTS] Path file:/C:/Users/mikos/OneDrive/Desktop/PersonalDocs/Job/Technical-Case/client_data/final_data.csv already exists. Set mode as "overwrite" to overwrite the existing path.
-Traceback (most recent call last):
-  File "C:\Users\mikos\OneDrive\Desktop\PersonalDocs\Job\Technical-Case\source_code\app.py", line 146, in <module>
-    Final_data.write.option("header", "true").csv(save_path)
-  File "C:\Users\mikos\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\pyspark\sql\readwriter.py", line 1864, in csv
-    self._jwrite.csv(path)
-  File "C:\Users\mikos\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\py4j\java_gateway.py", line 1322, in __call__
-    return_value = get_return_value(
-  File "C:\Users\mikos\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\pyspark\errors\exceptions\captured.py", line 185, in deco
-    raise converted from None
-pyspark.errors.exceptions.captured.AnalysisException: [PATH_ALREADY_EXISTS] Path file:/C:/Users/mikos/OneDrive/Desktop/PersonalDocs/Job/Technical-Case/client_data/final_data.csv already exists. Set mode as "overwrite" to overwrite the existing path.
+2024-02-29 02:40:21,313 - ProjectLogger - INFO - The column btc_a has been renamed to bitcoin_address
+2024-02-29 02:40:21,321 - ProjectLogger - INFO - The column cc_t has been renamed to credit_card_type
+2024-02-29 02:40:36,457 - ProjectLogger - INFO - Starting rename columns function with the following mapping: {'column_name': 'new_column_name'}
+2024-02-29 02:40:36,457 - ProjectLogger - WARNING - Column column_name does not exist in the DataFrame. Skipping renaming.
+2024-02-29 02:40:51,975 - ProjectLogger - INFO - Starting dropping columns function with the following columns: ['first_name', 'last_name', 'cc_n']
+2024-02-29 02:40:51,983 - ProjectLogger - INFO - The following columns ['first_name', 'last_name', 'cc_n'] have been dropped
