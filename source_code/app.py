@@ -136,6 +136,7 @@ def client_data_creation(df1_path: str, df2_path: str, country_name: str) -> Dat
     filtered_renamed_dropped_joined_df = filter_country(renamed_dropped_joined_df, "country", country_name)
     return filtered_renamed_dropped_joined_df
 
+# Usage
 Final_data = client_data_creation("Datasets/dataset_two.csv", "Datasets/dataset_one.csv", "Netherlands")
 
 # Write to client_data directory in root directory
