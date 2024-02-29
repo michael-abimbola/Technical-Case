@@ -1,0 +1,7 @@
+2024-02-29 01:52:18,622 - ProjectLogger - INFO - The column id has been renamed to client_identifier
+2024-02-29 01:52:18,633 - ProjectLogger - INFO - The column btc_a has been renamed to bitcoin_address
+2024-02-29 01:52:18,638 - ProjectLogger - INFO - The column cc_t has been renamed to credit_card_type
+2024-02-29 01:52:33,984 - ProjectLogger - INFO - Starting rename columns function with the following mapping: {'column_name': 'new_column_name'}
+2024-02-29 01:52:33,984 - ProjectLogger - WARNING - Column column_name does not exist in the DataFrame. Skipping renaming.
+2024-02-29 01:52:49,628 - ProjectLogger - INFO - Starting dropping columns function with the following columns: ['first_name', 'last_name', 'cc_n']
+2024-02-29 01:52:49,637 - ProjectLogger - INFO - The following columns ['first_name', 'last_name', 'cc_n'] have been dropped

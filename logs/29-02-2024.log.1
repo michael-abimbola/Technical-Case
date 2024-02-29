@@ -1,0 +1,15 @@
+2024-02-29 01:51:46,980 - ProjectLogger - INFO - Starting writing final data to client_data directory in root directory
+2024-02-29 01:51:47,379 - ProjectLogger - ERROR - Error whilte saving data to path: [PATH_ALREADY_EXISTS] Path file:/C:/Users/mikos/OneDrive/Desktop/PersonalDocs/Job/Technical-Case/client_data/final_data.csv already exists. Set mode as "overwrite" to overwrite the existing path.
+Traceback (most recent call last):
+  File "C:\Users\mikos\OneDrive\Desktop\PersonalDocs\Job\Technical-Case\source_code\app.py", line 146, in <module>
+    Final_data.write.option("header", "true").csv(save_path)
+  File "C:\Users\mikos\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\pyspark\sql\readwriter.py", line 1864, in csv
+    self._jwrite.csv(path)
+  File "C:\Users\mikos\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\py4j\java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+  File "C:\Users\mikos\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\pyspark\errors\exceptions\captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.AnalysisException: [PATH_ALREADY_EXISTS] Path file:/C:/Users/mikos/OneDrive/Desktop/PersonalDocs/Job/Technical-Case/client_data/final_data.csv already exists. Set mode as "overwrite" to overwrite the existing path.
+2024-02-29 01:51:47,891 - ProjectLogger - INFO - Starting to filter DataFrame on country Netherlands
+2024-02-29 01:52:03,555 - ProjectLogger - INFO - Dataframe has been filtered on the country Netherlands. Rows before filter: 3, Rows after filter: 2
+2024-02-29 01:52:18,616 - ProjectLogger - INFO - Starting rename columns function with the following mapping: {'id': 'client_identifier', 'btc_a': 'bitcoin_address', 'cc_t': 'credit_card_type'}

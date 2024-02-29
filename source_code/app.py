@@ -9,7 +9,7 @@ import datetime as dt
 from logging.handlers import RotatingFileHandler
 
 today = dt.datetime.today()
-log_filename_format = f"{today.day:02d}-{today.month:02d}-{today.year}.log"
+log_filename_format = f"./logs/{today.day:02d}-{today.month:02d}-{today.year}.log"
 
 import pyspark.sql.functions as f
 
@@ -72,8 +72,12 @@ def rename_column(origin_df: DataFrame, column_name_map: dict) -> DataFrame:
         try:    
                 renamed_df = origin_df
                 for original_column_name, new_column_name in column_name_map.items():
-                      renamed_df = renamed_df.withColumnRenamed(original_column_name, new_column_name)
-                      logger.info(f"The column {original_column_name} has been renamed to {new_column_name}")
+                        # Check if the original column name exists in the DataFrame
+                        if original_column_name in origin_df.columns:
+                                renamed_df = renamed_df.withColumnRenamed(original_column_name, new_column_name)
+                                logger.info(f"The column {original_column_name} has been renamed to {new_column_name}")
+                        else:
+                                logger.warning(f"Column {original_column_name} does not exist in the DataFrame. Skipping renaming.")
                 return renamed_df
         except AnalysisException  as e:
                 logger.exception(f"Error renaming columns: {e}")
@@ -100,20 +104,6 @@ def drop_columns(origin_df: DataFrame, columns: list) -> DataFrame:
       except AnalysisException  as e:
             logger.exception(f"Error dropping columns: {e}")
             return spark.createDataFrame([], schema=origin_df.schema)
-
-
-
-# Step 2: Create generic Rename function
-def rename_column(origin_df: DataFrame, column_name_map: dict) -> DataFrame:
-        try:    
-                renamed_df = origin_df
-                for original_column_name, new_column_name in column_name_map.items():
-                      renamed_df = renamed_df.withColumnRenamed(original_column_name, new_column_name)
-                      logger.info(f"The column {original_column_name} has been renamed to {new_column_name}")
-                return renamed_df
-        except Exception as e:
-                logger.exception(e)
-                return DataFrame()
 
 
 # Final: Function for creating final output
@@ -151,9 +141,14 @@ Final_data = client_data_creation("Datasets/dataset_two.csv", "Datasets/dataset_
 # Write to client_data directory in root directory
 logger.info(f"Starting writing final data to client_data directory in root directory")
 if Final_data:
-        save_path = "./client_data/final_data.csv"
-        Final_data.write.csv(save_path, mode='overwrite', header=True)
-        logger.info(f"Client data dataframe has been save to {save_path}")
+        try:
+                save_path = "./client_data/final_data.csv"
+                Final_data.write.option("header", "true").csv(save_path)
+                logger.info(f"Client data dataframe has been save to {save_path}")
+        except Exception as e:
+              logger.exception(f"Error whilte saving data to path: {e}")
+              
+
 else:
       logger.info(f"Client data dataframe is empty, writing unsuccessful")
 
