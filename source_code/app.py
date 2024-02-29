@@ -16,6 +16,7 @@ import pyspark.sql.functions as f
 # Spark session creation
 spark = SparkSession.builder\
         .appName("Programming-Exercise") \
+        .master("local") \
         .getOrCreate()
 
 # Logging initilisation
@@ -108,6 +109,23 @@ def drop_columns(origin_df: DataFrame, columns: list) -> DataFrame:
 
 # Final: Function for creating final output
 def client_data_creation(df1_path: str, df2_path: str, country_name: str) -> DataFrame:
+    
+    """
+    This function reads two CSV files specified by df1_path and df2_path, joins them on the id column, drops specified columns (first_name, last_name, cc_n), 
+    renames certain columns, and filters the resulting DataFrame by a specified country_name to create a final output Dataframe.
+
+    Parameters
+    ----------
+    :param df1_path : The path to the first CSV file.
+    :type df1_path : str
+    :param df2_path : The path to the second CSV file.
+    :type df2_path : str
+    :param country_name : The name of the country to filter the DataFrame by.
+    :type country_name : str
+    :return: A final dataframe after joining, dropping columns, renaming columns and filtering by a specified country
+    :rtype: Dataframe
+    """
+    logger.info(f"Starting client data creation function") 
     # Read both dataframes
     df1= spark.read.csv(df1_path, header = True, inferSchema = True)
     df2 = spark.read.csv(df2_path, header = True, inferSchema = True)
@@ -134,6 +152,10 @@ def client_data_creation(df1_path: str, df2_path: str, country_name: str) -> Dat
 
     # Filter joined dataframe by country
     filtered_renamed_dropped_joined_df = filter_country(renamed_dropped_joined_df, "country", country_name)
+    if filtered_renamed_dropped_joined_df:
+        logger.info(f"Client data creation function ran successfully and Final dataframe created")
+    else:
+        logger.info(f"Client data creation function unsuccessful, Final dataframe is empty")
     return filtered_renamed_dropped_joined_df
 
 # Usage
@@ -148,8 +170,6 @@ if Final_data:
                 logger.info(f"Client data dataframe has been save to {save_path}")
         except Exception as e:
               logger.exception(f"Error whilte saving data to path: {e}")
-              
-
 else:
       logger.info(f"Client data dataframe is empty, writing unsuccessful")
 
