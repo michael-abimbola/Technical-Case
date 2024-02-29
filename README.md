@@ -7,21 +7,21 @@ data manipulation tasks listed are performed on two data files in CSV format.
 - Dataset two contains the customers credit card information
 
 # Getting Started
-1. Clone the repository
+1. Clone the repository  
 git clone https://github.com/michael-abimbola/Technical-Case.git
 
-2. Navigate to the project directory
+2. Navigate to the project directory  
 cd Technical-Case
 
-3. Use the package manager pip to install the packages in requirement.txt 
+3. Use the package manager pip to install the packages in requirement.txt   
 pip install -r requirements.txt
 
 # Usage  
 To use the solution input the path to both datasets and the country name needed to be filtered on  . 
-The following code under the usage comment in source_code/app.py should be updated with the respective values.  
+The following code under the usage comment in source_code/app.py should be updated with the respective values.    
 Final_data = client_data_creation(<dataset_two.csv>, <dataset_one.csv>, <country_name>)  
   
-To run the solution while on the project directory on command line run:
+To run the solution while on the project directory on command line run:  
 python source_code/app.py
 
 # Features
@@ -34,5 +34,5 @@ python source_code/app.py
 The processed data is saved to a CSV file named final_data.csv in the client_data directory. 
 
 # Logging
-Logs are stored in a rotating file handler, with a new log file created daily.   
+Logs are stored in a rotating file handler, with a new log file created daily.     
 The log files are named according to the date (e.g., 29-02-2024.log) and limited to a maximum size of 2048 bytes.
