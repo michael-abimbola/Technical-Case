@@ -1,15 +1,16 @@
-2024-02-29 01:47:02,809 - ProjectLogger - ERROR - Error whilte saving data to path: [PATH_ALREADY_EXISTS] Path file:/C:/Users/mikos/OneDrive/Desktop/PersonalDocs/Job/Technical-Case/client_data/final_data.csv already exists. Set mode as "overwrite" to overwrite the existing path.
-Traceback (most recent call last):
-  File "C:\Users\mikos\OneDrive\Desktop\PersonalDocs\Job\Technical-Case\source_code\app.py", line 146, in <module>
-    Final_data.write.option("header", "true").csv(save_path)
-  File "C:\Users\mikos\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\pyspark\sql\readwriter.py", line 1864, in csv
-    self._jwrite.csv(path)
-  File "C:\Users\mikos\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\py4j\java_gateway.py", line 1322, in __call__
-    return_value = get_return_value(
-  File "C:\Users\mikos\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\pyspark\errors\exceptions\captured.py", line 185, in deco
-    raise converted from None
-pyspark.errors.exceptions.captured.AnalysisException: [PATH_ALREADY_EXISTS] Path file:/C:/Users/mikos/OneDrive/Desktop/PersonalDocs/Job/Technical-Case/client_data/final_data.csv already exists. Set mode as "overwrite" to overwrite the existing path.
-2024-02-29 01:47:03,318 - ProjectLogger - INFO - Starting to filter DataFrame on country Netherlands
-2024-02-29 01:47:18,461 - ProjectLogger - INFO - Dataframe has been filtered on the country Netherlands. Rows before filter: 3, Rows after filter: 2
-2024-02-29 01:47:33,374 - ProjectLogger - INFO - Starting rename columns function with the following mapping: {'id': 'client_identifier', 'btc_a': 'bitcoin_address', 'cc_t': 'credit_card_type'}
-2024-02-29 01:47:33,380 - ProjectLogger - INFO - The column id has been renamed to client_identifier
+2024-02-29 01:47:33,388 - ProjectLogger - INFO - The column btc_a has been renamed to bitcoin_address
+2024-02-29 01:47:33,401 - ProjectLogger - INFO - The column cc_t has been renamed to credit_card_type
+2024-02-29 01:47:48,165 - ProjectLogger - INFO - Starting rename columns function with the following mapping: {'column_name': 'new_column_name'}
+2024-02-29 01:47:48,165 - ProjectLogger - WARNING - Column column_name does not exist in the DataFrame. Skipping renaming.
+2024-02-29 01:47:48,571 - ProjectLogger - INFO - Starting dropping columns function with the following columns: ['first_name', 'last_name', 'cc_n']
+2024-02-29 01:47:48,579 - ProjectLogger - INFO - The following columns ['first_name', 'last_name', 'cc_n'] have been dropped
+2024-02-29 01:51:45,931 - ProjectLogger - INFO - Both dataframes read by spark
+2024-02-29 01:51:45,951 - ProjectLogger - INFO - Personal info and Credit card dataframes joined
+2024-02-29 01:51:45,951 - ProjectLogger - INFO - Starting dropping columns function with the following columns: ['first_name', 'last_name', 'cc_n']
+2024-02-29 01:51:45,961 - ProjectLogger - INFO - The following columns ['first_name', 'last_name', 'cc_n'] have been dropped
+2024-02-29 01:51:45,961 - ProjectLogger - INFO - Starting rename columns function with the following mapping: {'id': 'client_identifier', 'btc_a': 'bitcoin_address', 'cc_t': 'credit_card_type'}
+2024-02-29 01:51:45,981 - ProjectLogger - INFO - The column id has been renamed to client_identifier
+2024-02-29 01:51:45,986 - ProjectLogger - INFO - The column btc_a has been renamed to bitcoin_address
+2024-02-29 01:51:45,992 - ProjectLogger - INFO - The column cc_t has been renamed to credit_card_type
+2024-02-29 01:51:45,992 - ProjectLogger - INFO - Starting to filter DataFrame on country Netherlands
+2024-02-29 01:51:46,980 - ProjectLogger - INFO - Dataframe has been filtered on the country Netherlands. Rows before filter: 1000, Rows after filter: 62
