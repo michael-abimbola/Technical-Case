@@ -165,7 +165,7 @@ Final_data = client_data_creation("Datasets/dataset_two.csv", "Datasets/dataset_
 logger.info(f"Starting writing final data to client_data directory in root directory")
 if Final_data:
         try:
-                save_path = "./client_data/final_data.csv"
+                save_path = "./client_data/"
                 Final_data.write.mode("overwrite").option("header", "true").csv(save_path)
                 logger.info(f"Client data dataframe has been save to {save_path}")
         except Exception as e:
